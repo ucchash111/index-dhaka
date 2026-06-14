@@ -1,10 +1,8 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Lock, ArrowRight, Loader } from "lucide-react";
 
 export default function LoginPage() {
-  const router = useRouter();
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -21,7 +19,7 @@ export default function LoginPage() {
     });
 
     if (res.ok) {
-      router.push("/admin/applications");
+      window.location.href = "/admin/applications";
     } else {
       setError("Incorrect password.");
       setLoading(false);
