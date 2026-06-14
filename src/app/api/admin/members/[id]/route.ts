@@ -1,19 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabase";
+import sql from "@/lib/db";
 
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  const body = await req.json();
+  const { featured } = await req.json();
 
-  const { error } = await supabaseAdmin
-    .from("members")
-    .update(body)
-    .eq("id", id);
-
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  await sql`UPDATE members SET featured = ${featured} WHERE id = ${id}`;
   return NextResponse.json({ ok: true });
 }
 
@@ -22,8 +17,6 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-
-  const { error } = await supabaseAdmin.from("members").delete().eq("id", id);
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  await sql`DELETE FROM members WHERE id = ${id}`;
   return NextResponse.json({ ok: true });
 }

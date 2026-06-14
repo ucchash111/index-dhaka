@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabase";
+import sql from "@/lib/db";
 
 export async function POST(req: NextRequest) {
   const { name, email, building, link } = await req.json();
@@ -8,17 +8,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
-  const { error } = await supabaseAdmin.from("applications").insert({
-    name,
-    email,
-    building,
-    link: link || null,
-    status: "pending",
-  });
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
+  await sql`
+    INSERT INTO applications (name, email, building, link, status)
+    VALUES (${name}, ${email}, ${building}, ${link || null}, 'pending')
+  `;
 
   return NextResponse.json({ ok: true });
 }

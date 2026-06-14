@@ -1,36 +1,32 @@
--- Run this in your Supabase project's SQL editor
+-- PostgreSQL schema for Index Dhaka
+-- Run this once on your database
 
-create table applications (
-  id uuid primary key default gen_random_uuid(),
-  name text not null,
-  email text not null,
-  building text not null,
-  link text,
-  status text not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
-  created_at timestamptz default now()
+CREATE TABLE IF NOT EXISTS applications (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  building TEXT NOT NULL,
+  link TEXT,
+  status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
-create table members (
-  id uuid primary key default gen_random_uuid(),
-  name text not null,
-  role text not null,
-  building text not null,
-  featured boolean not null default false,
-  avatar_url text,
-  created_at timestamptz default now()
+CREATE TABLE IF NOT EXISTS members (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL,
+  role TEXT NOT NULL,
+  building TEXT NOT NULL,
+  featured BOOLEAN NOT NULL DEFAULT FALSE,
+  avatar_url TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
-create table events (
-  id uuid primary key default gen_random_uuid(),
-  title text not null,
-  type text not null check (type in ('weekly', 'dinner', 'showcase')),
-  date timestamptz not null,
-  location text not null,
-  description text default '',
-  created_at timestamptz default now()
+CREATE TABLE IF NOT EXISTS events (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  title TEXT NOT NULL,
+  type TEXT NOT NULL CHECK (type IN ('weekly', 'dinner', 'showcase')),
+  date TIMESTAMPTZ NOT NULL,
+  location TEXT NOT NULL,
+  description TEXT DEFAULT '',
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
-
--- Disable RLS for server-side only access (service role key bypasses RLS anyway)
-alter table applications disable row level security;
-alter table members disable row level security;
-alter table events disable row level security;

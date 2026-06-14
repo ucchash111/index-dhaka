@@ -1,78 +1,26 @@
 import "server-only";
-import { supabaseAdmin } from "@/lib/supabase";
+import sql from "@/lib/db";
 import type { Member } from "@/lib/types";
 import { User } from "lucide-react";
 
 async function getFeaturedMembers(): Promise<Member[]> {
   try {
-    const { data, error } = await supabaseAdmin
-      .from("members")
-      .select("*")
-      .eq("featured", true)
-      .limit(6);
-
-    if (error || !data) return [];
-    return data;
+    const rows = await sql<Member[]>`
+      SELECT * FROM members WHERE featured = true ORDER BY created_at ASC LIMIT 6
+    `;
+    return rows;
   } catch {
     return [];
   }
 }
 
 const placeholders: Member[] = [
-  {
-    id: "1",
-    name: "Rafiq Ahmed",
-    role: "Founder",
-    building: "Building a fintech platform for SME lending in Bangladesh.",
-    featured: true,
-    avatar_url: null,
-    created_at: "",
-  },
-  {
-    id: "2",
-    name: "Nadia Islam",
-    role: "Researcher",
-    building: "Computational linguistics at BUET. NLP for Bangla.",
-    featured: true,
-    avatar_url: null,
-    created_at: "",
-  },
-  {
-    id: "3",
-    name: "Tanvir Hossain",
-    role: "Engineer",
-    building: "Two open-source tools with 3k GitHub stars. Writing about systems.",
-    featured: true,
-    avatar_url: null,
-    created_at: "",
-  },
-  {
-    id: "4",
-    name: "Sara Khan",
-    role: "Operator",
-    building: "COO at a 200-person logistics company. Previously scaled ops at Shohoz.",
-    featured: true,
-    avatar_url: null,
-    created_at: "",
-  },
-  {
-    id: "5",
-    name: "Arif Chowdhury",
-    role: "Investor",
-    building: "Angel investor. 12 early-stage bets in BD. Ex-founder.",
-    featured: true,
-    avatar_url: null,
-    created_at: "",
-  },
-  {
-    id: "6",
-    name: "Mira Das",
-    role: "Creator",
-    building: "Documentary filmmaker. 3 films on Dhaka's informal economy.",
-    featured: true,
-    avatar_url: null,
-    created_at: "",
-  },
+  { id: "1", name: "Rafiq Ahmed", role: "Founder", building: "Building a fintech platform for SME lending in Bangladesh.", featured: true, avatar_url: null, created_at: "" },
+  { id: "2", name: "Nadia Islam", role: "Researcher", building: "Computational linguistics at BUET. NLP for Bangla.", featured: true, avatar_url: null, created_at: "" },
+  { id: "3", name: "Tanvir Hossain", role: "Engineer", building: "Two open-source tools with 3k GitHub stars. Writing about systems.", featured: true, avatar_url: null, created_at: "" },
+  { id: "4", name: "Sara Khan", role: "Operator", building: "COO at a 200-person logistics company. Previously scaled ops at Shohoz.", featured: true, avatar_url: null, created_at: "" },
+  { id: "5", name: "Arif Chowdhury", role: "Investor", building: "Angel investor. 12 early-stage bets in BD. Ex-founder.", featured: true, avatar_url: null, created_at: "" },
+  { id: "6", name: "Mira Das", role: "Creator", building: "Documentary filmmaker. 3 films on Dhaka's informal economy.", featured: true, avatar_url: null, created_at: "" },
 ];
 
 export default async function Members() {
@@ -98,9 +46,7 @@ export default async function Members() {
               <div className="w-10 h-10 bg-[#e5e2dc] flex items-center justify-center mb-4">
                 <User size={18} className="text-[#888]" />
               </div>
-              <div className="font-bold text-sm text-[#111] mb-0.5">
-                {member.name}
-              </div>
+              <div className="font-bold text-sm text-[#111] mb-0.5">{member.name}</div>
               <div className="text-[9px] font-bold tracking-[2px] uppercase text-[#888] mb-3">
                 {member.role}
               </div>
