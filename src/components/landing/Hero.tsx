@@ -8,7 +8,7 @@ export default function Hero() {
           {/* Left */}
           <div>
             <div className="text-[10px] font-bold tracking-[3px] text-[#c0392b] uppercase mb-4">
-              Dhaka&apos;s Most Ambitious People
+              Dhaka&apos;s High-Agency Network
             </div>
             <h1
               className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.02] tracking-tight text-[#111]"
@@ -21,8 +21,9 @@ export default function Hero() {
               city&apos;s future.
             </h1>
             <p className="mt-5 text-sm md:text-base text-[#555] leading-relaxed max-w-sm">
-              A curated network of researchers, founders, creators, engineers,
-              writers, operators, and anyone else doing remarkable work in Dhaka.{" "}
+              A curated network of exceptional people in Dhaka — across every
+              field. The filter is not what you do. It&apos;s whether you
+              actually do it.{" "}
               <strong className="text-[#111]">High signal. Low noise.</strong>
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-3 items-start">

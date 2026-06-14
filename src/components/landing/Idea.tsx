@@ -26,15 +26,13 @@ export default function Idea() {
               they rarely know each other.
             </h2>
             <p className="text-sm md:text-base text-[#aaa] leading-relaxed mb-5">
-              Index Dhaka exists to create a living index of the city&apos;s most
-              remarkable people — across every field. Researchers and founders.
-              Writers and engineers. Artists and operators. Investors and
-              students. Not a startup community. Not a networking club. Not a
-              business association.
+              Index Dhaka exists to create a living index of the city&apos;s
+              most exceptional people — across every field. The common trait is
+              not profession. It&apos;s agency. Not a startup community. Not a
+              networking club. Not a business association.
             </p>
             <p className="text-sm md:text-base text-[#aaa] leading-relaxed">
-              A network of people who are actually doing things — whatever those
-              things may be.
+              A curated network of people who are actually doing things.
             </p>
             <blockquote className="mt-8 border-l-4 border-[#c0392b] pl-5 py-3 bg-[#1a1a1a]">
               <p

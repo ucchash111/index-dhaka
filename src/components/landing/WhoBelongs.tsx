@@ -7,9 +7,7 @@ const inList = [
   "Writers & journalists",
   "Artists & filmmakers",
   "Investors & operators",
-  "Community builders",
   "Exceptional students",
-  "Anyone doing remarkable work",
 ];
 
 const outList = [
@@ -35,7 +33,7 @@ export default function WhoBelongs() {
               className="text-2xl md:text-3xl font-bold text-[#111] mb-6"
               style={{ fontFamily: "var(--font-playfair)" }}
             >
-              People who have done something real.
+              Exceptional people across every field.
             </h2>
             <ul className="space-y-0">
               {inList.map((item) => (
