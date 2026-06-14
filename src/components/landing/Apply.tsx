@@ -54,13 +54,13 @@ export default function Apply() {
               className="text-3xl md:text-4xl font-black text-[#fafaf8] leading-tight mb-4"
               style={{ fontFamily: "var(--font-playfair)" }}
             >
-              Are you building something?
+              Are you doing something remarkable?
             </h2>
             <p className="text-sm text-[#aaa] leading-relaxed">
               Applications are reviewed manually. We&apos;re looking for people
-              with demonstrated action — not just ambition. Add everything
-              you&apos;ve built, created, or shipped. If you&apos;re the right
-              fit, you&apos;ll hear back within a week.
+              with a real body of work — not just ambition. Add everything
+              you&apos;ve built, written, researched, created, or shipped. If
+              you&apos;re the right fit, you&apos;ll hear back within a week.
             </p>
           </div>
 
@@ -97,7 +97,7 @@ export default function Apply() {
                 />
                 <textarea
                   className={`${inputClass} resize-none`}
-                  placeholder="What are you working on? Give us the overview."
+                  placeholder="What are you working on? (startup, research, art, writing, anything...)"
                   rows={3}
                   required
                   value={form.building}

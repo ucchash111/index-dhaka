@@ -8,7 +8,7 @@ export default function Hero() {
           {/* Left */}
           <div>
             <div className="text-[10px] font-bold tracking-[3px] text-[#c0392b] uppercase mb-4">
-              Dhaka&apos;s Builder Network
+              Dhaka&apos;s Most Ambitious People
             </div>
             <h1
               className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.02] tracking-tight text-[#111]"
@@ -16,13 +16,13 @@ export default function Hero() {
             >
               The people
               <br />
-              building this
+              shaping this
               <br />
               city&apos;s future.
             </h1>
             <p className="mt-5 text-sm md:text-base text-[#555] leading-relaxed max-w-sm">
-              A curated network of founders, builders, researchers, operators,
-              and high-agency people in Dhaka.{" "}
+              A curated network of researchers, founders, creators, engineers,
+              writers, operators, and anyone else doing remarkable work in Dhaka.{" "}
               <strong className="text-[#111]">High signal. Low noise.</strong>
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-3 items-start">

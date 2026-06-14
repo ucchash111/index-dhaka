@@ -1,15 +1,15 @@
 import { ArrowRight } from "lucide-react";
 
 const inList = [
-  "Startup founders",
-  "Business owners",
-  "Researchers",
-  "Creators & designers",
-  "Engineers",
+  "Researchers & academics",
+  "Founders & business owners",
+  "Engineers & designers",
+  "Writers & journalists",
+  "Artists & filmmakers",
   "Investors & operators",
   "Community builders",
   "Exceptional students",
-  "Writers",
+  "Anyone doing remarkable work",
 ];
 
 const outList = [
@@ -35,7 +35,7 @@ export default function WhoBelongs() {
               className="text-2xl md:text-3xl font-bold text-[#111] mb-6"
               style={{ fontFamily: "var(--font-playfair)" }}
             >
-              People who have demonstrated action.
+              People who have done something real.
             </h2>
             <ul className="space-y-0">
               {inList.map((item) => (
