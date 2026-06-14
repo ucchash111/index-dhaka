@@ -1,11 +1,17 @@
 export type ApplicationStatus = "pending" | "approved" | "rejected";
 
+export interface Project {
+  name: string;
+  url: string;
+}
+
 export interface Application {
   id: string;
   name: string;
   email: string;
   building: string;
   link: string;
+  projects: Project[] | string;
   status: ApplicationStatus;
   created_at: string;
 }

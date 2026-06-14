@@ -1,17 +1,22 @@
 "use client";
 import { useState } from "react";
-import { ArrowRight, CheckCircle, Loader } from "lucide-react";
+import { ArrowRight, CheckCircle, Loader, Plus, Trash2 } from "lucide-react";
 
 type FormState = "idle" | "loading" | "success" | "error";
+type Project = { name: string; url: string };
 
 export default function Apply() {
   const [state, setState] = useState<FormState>("idle");
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    building: "",
-    link: "",
-  });
+  const [form, setForm] = useState({ name: "", email: "", building: "" });
+  const [projects, setProjects] = useState<Project[]>([{ name: "", url: "" }]);
+
+  const addProject = () => setProjects((p) => [...p, { name: "", url: "" }]);
+
+  const removeProject = (i: number) =>
+    setProjects((p) => p.filter((_, idx) => idx !== i));
+
+  const updateProject = (i: number, field: keyof Project, value: string) =>
+    setProjects((p) => p.map((proj, idx) => (idx === i ? { ...proj, [field]: value } : proj)));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,14 +26,13 @@ export default function Apply() {
       const res = await fetch("/api/apply", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          projects: projects.filter((p) => p.name || p.url),
+          link: projects[0]?.url || "",
+        }),
       });
-
-      if (res.ok) {
-        setState("success");
-      } else {
-        setState("error");
-      }
+      setState(res.ok ? "success" : "error");
     } catch {
       setState("error");
     }
@@ -40,7 +44,7 @@ export default function Apply() {
   return (
     <section id="apply" className="bg-[#111] border-b-2 border-[#111]">
       <div className="px-5 py-14 md:px-10 md:py-20 max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
           {/* Left */}
           <div>
             <div className="text-[9px] font-bold tracking-[3px] uppercase text-[#aaa] mb-4">
@@ -54,8 +58,9 @@ export default function Apply() {
             </h2>
             <p className="text-sm text-[#aaa] leading-relaxed">
               Applications are reviewed manually. We&apos;re looking for people
-              with demonstrated action — not just ambition. If you&apos;re the
-              right fit, you&apos;ll hear back within a week.
+              with demonstrated action — not just ambition. Add everything
+              you&apos;ve built, created, or shipped. If you&apos;re the right
+              fit, you&apos;ll hear back within a week.
             </p>
           </div>
 
@@ -92,20 +97,56 @@ export default function Apply() {
                 />
                 <textarea
                   className={`${inputClass} resize-none`}
-                  placeholder="What are you building / working on?"
+                  placeholder="What are you working on? Give us the overview."
                   rows={3}
                   required
                   value={form.building}
-                  onChange={(e) =>
-                    setForm({ ...form, building: e.target.value })
-                  }
+                  onChange={(e) => setForm({ ...form, building: e.target.value })}
                 />
-                <input
-                  className={inputClass}
-                  placeholder="Link to your work (GitHub, site, project...)"
-                  value={form.link}
-                  onChange={(e) => setForm({ ...form, link: e.target.value })}
-                />
+
+                {/* Projects */}
+                <div className="border-t border-[#222] pt-3 mt-1">
+                  <div className="text-[9px] font-bold tracking-[3px] uppercase text-[#555] mb-3">
+                    Your projects / work
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    {projects.map((proj, i) => (
+                      <div key={i} className="flex gap-2 items-start">
+                        <div className="flex-1 flex flex-col gap-2">
+                          <input
+                            className={inputClass}
+                            placeholder={`Project name (e.g. Atlas, my research paper...)`}
+                            value={proj.name}
+                            onChange={(e) => updateProject(i, "name", e.target.value)}
+                          />
+                          <input
+                            className={inputClass}
+                            placeholder="Link (GitHub, site, paper, portfolio...)"
+                            value={proj.url}
+                            onChange={(e) => updateProject(i, "url", e.target.value)}
+                          />
+                        </div>
+                        {projects.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => removeProject(i)}
+                            className="mt-3 text-[#444] hover:text-[#c0392b] transition-colors shrink-0"
+                          >
+                            <Trash2 size={15} />
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={addProject}
+                    className="mt-3 flex items-center gap-2 text-[10px] font-bold tracking-[1px] uppercase text-[#555] hover:text-[#fafaf8] transition-colors"
+                  >
+                    <Plus size={13} /> Add another project
+                  </button>
+                </div>
 
                 {state === "error" && (
                   <p className="text-[#c0392b] text-xs">
@@ -116,7 +157,7 @@ export default function Apply() {
                 <button
                   type="submit"
                   disabled={state === "loading"}
-                  className="mt-1 flex items-center justify-center gap-2 bg-[#c0392b] text-[#fafaf8] text-[10px] font-bold tracking-[2px] uppercase px-6 py-4 hover:bg-[#a93226] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="mt-2 flex items-center justify-center gap-2 bg-[#c0392b] text-[#fafaf8] text-[10px] font-bold tracking-[2px] uppercase px-6 py-4 hover:bg-[#a93226] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {state === "loading" ? (
                     <Loader size={13} className="animate-spin" />
