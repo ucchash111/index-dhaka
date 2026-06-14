@@ -12,12 +12,10 @@ export function proxy(req: NextRequest) {
     return NextResponse.next();
   }
 
+  // Quick existence check in Edge runtime — real value validation happens in the layout
   const token = req.cookies.get("admin_token")?.value;
-  const validToken = process.env.ADMIN_TOKEN ?? process.env.ADMIN_PASSWORD;
-
-  if (!token || token !== validToken) {
-    const loginUrl = new URL("/admin/login", req.url);
-    return NextResponse.redirect(loginUrl);
+  if (!token) {
+    return NextResponse.redirect(new URL("/admin/login", req.url));
   }
 
   return NextResponse.next();
