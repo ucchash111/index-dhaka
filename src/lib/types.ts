@@ -9,6 +9,7 @@ export interface Application {
   id: string;
   name: string;
   email: string;
+  whatsapp: string | null;
   building: string;
   link: string;
   projects: Project[] | string;

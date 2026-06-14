@@ -7,7 +7,7 @@ type Project = { name: string; url: string };
 
 export default function Apply() {
   const [state, setState] = useState<FormState>("idle");
-  const [form, setForm] = useState({ name: "", email: "", building: "" });
+  const [form, setForm] = useState({ name: "", email: "", whatsapp: "", building: "" });
   const [projects, setProjects] = useState<Project[]>([{ name: "", url: "" }]);
 
   const addProject = () => setProjects((p) => [...p, { name: "", url: "" }]);
@@ -94,6 +94,13 @@ export default function Apply() {
                   required
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
+                />
+                <input
+                  className={inputClass}
+                  placeholder="WhatsApp number (with country code, e.g. +8801...)"
+                  type="tel"
+                  value={form.whatsapp}
+                  onChange={(e) => setForm({ ...form, whatsapp: e.target.value })}
                 />
                 <textarea
                   className={`${inputClass} resize-none`}

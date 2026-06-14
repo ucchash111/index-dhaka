@@ -115,6 +115,18 @@ export default function ApplicationsClient({
                     {expanded === app.id && (
                       <tr key={`${app.id}-exp`} className="bg-[#fafaf8] border-b border-[#f0f0f0]">
                         <td colSpan={5} className="px-4 py-4">
+                          <div className="flex gap-6 mb-4 flex-wrap">
+                            <div>
+                              <div className="text-[9px] font-bold tracking-[2px] uppercase text-[#888] mb-1">Email</div>
+                              <a href={`mailto:${app.email}`} className="text-sm text-[#c0392b] hover:underline">{app.email}</a>
+                            </div>
+                            {app.whatsapp && (
+                              <div>
+                                <div className="text-[9px] font-bold tracking-[2px] uppercase text-[#888] mb-1">WhatsApp</div>
+                                <a href={`https://wa.me/${app.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="text-sm text-[#c0392b] hover:underline">{app.whatsapp}</a>
+                              </div>
+                            )}
+                          </div>
                           <div className="text-[9px] font-bold tracking-[2px] uppercase text-[#888] mb-1">What they&apos;re building</div>
                           <p className="text-sm text-[#333] mb-4">{app.building}</p>
 
