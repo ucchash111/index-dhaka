@@ -10,6 +10,7 @@ export interface Application {
   name: string;
   email: string;
   whatsapp: string | null;
+  referred_by: string | null;
   building: string;
   link: string;
   projects: Project[] | string;

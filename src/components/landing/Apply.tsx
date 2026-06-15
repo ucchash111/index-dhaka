@@ -7,7 +7,7 @@ type Project = { name: string; url: string };
 
 export default function Apply() {
   const [state, setState] = useState<FormState>("idle");
-  const [form, setForm] = useState({ name: "", email: "", whatsapp: "", building: "" });
+  const [form, setForm] = useState({ name: "", email: "", whatsapp: "", building: "", referred_by: "" });
   const [projects, setProjects] = useState<Project[]>([{ name: "", url: "" }]);
 
   const addProject = () => setProjects((p) => [...p, { name: "", url: "" }]);
@@ -101,6 +101,12 @@ export default function Apply() {
                   type="tel"
                   value={form.whatsapp}
                   onChange={(e) => setForm({ ...form, whatsapp: e.target.value })}
+                />
+                <input
+                  className={inputClass}
+                  placeholder="Referred by (optional — name of the member who referred you)"
+                  value={form.referred_by}
+                  onChange={(e) => setForm({ ...form, referred_by: e.target.value })}
                 />
                 <textarea
                   className={`${inputClass} resize-none`}

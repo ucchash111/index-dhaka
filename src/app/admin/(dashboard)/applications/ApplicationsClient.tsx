@@ -126,6 +126,12 @@ export default function ApplicationsClient({
                                 <a href={`https://wa.me/${app.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="text-sm text-[#c0392b] hover:underline">{app.whatsapp}</a>
                               </div>
                             )}
+                            {app.referred_by && (
+                              <div>
+                                <div className="text-[9px] font-bold tracking-[2px] uppercase text-[#888] mb-1">Referred by</div>
+                                <span className="text-sm text-[#333]">{app.referred_by}</span>
+                              </div>
+                            )}
                           </div>
                           <div className="text-[9px] font-bold tracking-[2px] uppercase text-[#888] mb-1">What they&apos;re building</div>
                           <p className="text-sm text-[#333] mb-4">{app.building}</p>
